@@ -1,0 +1,38 @@
+name: CI
+
+on: [push]
+
+jobs:
+  php:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    strategy:
+      matrix:
+        php: ['8.1']
+
+    steps:
+      - name: Checkout the project
+        uses: actions/checkout@v3
+
+      - name: Setup the PHP ${{ matrix.php }} environment on ${{ runner.os }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+
+      - name: Restore the Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> "${GITHUB_OUTPUT}"
+
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-${{ matrix.php }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader --no-suggest
+
+      - name: Execute the PHP lint script
+        run: composer run-script style:check
