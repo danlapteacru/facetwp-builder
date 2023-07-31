@@ -152,18 +152,14 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
      *
      * @param array $facets
      */
-    public function addFacetWpHook(array $facets = []): void
+    public static function addFacetWpHook(array $facets = []): void
     {
-        if (! function_exists('add_filter')) {
+        if (empty($facets) || ! function_exists('add_filter')) {
             return;
         }
 
-        if (empty($facets)) {
-            $facets = $this->buildFacets();
-        }
-
-        if (empty($facets)) {
-            return;
+        if (! static::isMultidimensionalArray($facets)) {
+            $facets = [$facets];
         }
 
         add_filter('facetwp_facets', fn (array $facetWpFacets): array => array_merge($facetWpFacets, $facets));
@@ -226,6 +222,20 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
         return $facet;
     }
 
+    public static function getAllowedFacetTypes(): array
+    {
+        $facetTypes = static::ALLOWED_FACET_TYPES;
+
+        if (function_exists('apply_filters')) {
+            $facetTypes = apply_filters(
+                'danlapteacru/facetwp-builder/allowed_facet_types',
+                $facetTypes,
+            );
+        }
+
+        return $facetTypes;
+    }
+
     /**
      * Add the facets method to the builder
      *
@@ -240,21 +250,11 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
         $methodName = lcfirst(substr($method, 3));
         $keyName = $this->camelCaseToSnakeCase($methodName);
-        $allowedFacetTypes = static::ALLOWED_FACET_TYPES;
+        $allowedFacetTypes = static::getAllowedFacetTypes();
 
         if (function_exists('apply_filters')) {
             $keyName = apply_filters(
                 'danlapteacru/facetwp-builder/facet_key',
-                $keyName,
-                $methodName,
-                $method,
-                $args,
-                $this,
-            );
-
-            $allowedFacetTypes = apply_filters(
-                'danlapteacru/facetwp-builder/allowed_facet_types',
-                $allowedFacetTypes,
                 $keyName,
                 $methodName,
                 $method,
