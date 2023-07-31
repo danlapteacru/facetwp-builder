@@ -132,7 +132,7 @@ abstract class FacetWpManager
     /**
      * Replace a facet with a single facet or array of facets
      *
-     * @param string                                                      $name name of facet to replace
+     * @param string                                                        $name name of facet to replace
      * @param FacetBuilder|FacetBuilder[]|TemplateBuilder|TemplateBuilder[] $facetWpItem single or array of facets
      * @throws FacetNotFoundException|FacetNameCollisionException If the facet name doesn't exist.
      */
