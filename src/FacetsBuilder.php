@@ -6,8 +6,6 @@ namespace DanLapteacru\FacetWpBuilder;
 
 use BadMethodCallException;
 use DanLapteacru\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
-use DanLapteacru\FacetWpBuilder\Exceptions\FacetNameCollisionException;
-use DanLapteacru\FacetWpBuilder\Exceptions\FacetNotFoundException;
 use DanLapteacru\FacetWpBuilder\Facets\Autocomplete;
 use DanLapteacru\FacetWpBuilder\Facets\Checkbox;
 use DanLapteacru\FacetWpBuilder\Facets\DateRange;
@@ -142,7 +140,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
             $facets = apply_filters(
                 'danlapteacru/facetwp-builder/facets',
                 $facets,
-                $this
+                $this,
             );
         }
 
@@ -154,18 +152,14 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
      *
      * @param array $facets
      */
-    public function addFacetWpHook(array $facets = []): void
+    public static function addFacetWpHook(array $facets = []): void
     {
-        if (! function_exists('add_filter')) {
+        if (empty($facets) || ! function_exists('add_filter')) {
             return;
         }
 
-        if (empty($facets)) {
-            $facets = $this->buildFacets();
-        }
-
-        if (empty($facets)) {
-            return;
+        if (! static::isMultidimensionalArray($facets)) {
+            $facets = [$facets];
         }
 
         add_filter('facetwp_facets', fn (array $facetWpFacets): array => array_merge($facetWpFacets, $facets));
@@ -186,6 +180,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Add multiple facets either via an array or from another builder
+     *
      * @throws FacetNameCollisionException If a facet name already exists.
      */
     public function addFacets(array|FacetsBuilder $facets): static
@@ -207,7 +202,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
      *
      * @param string $name facet name
      * @param string $type facet type
-     * @param array $args facet configuration
+     * @param array  $args facet configuration
      * @throws FacetNameCollisionException If a facet name already exists.
      */
     public function addFacet(string $name, string $type, array $args = []): FacetBuilder
@@ -217,6 +212,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Initialize the FacetBuilder, add to FacetManager, and return the FacetBuilder
+     *
      * @throws FacetNameCollisionException If a facet name already exists.
      */
     protected function initializeFacet(FacetBuilder $facet): FacetBuilder
@@ -226,10 +222,24 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
         return $facet;
     }
 
+    public static function getAllowedFacetTypes(): array
+    {
+        $facetTypes = static::ALLOWED_FACET_TYPES;
+
+        if (function_exists('apply_filters')) {
+            $facetTypes = apply_filters(
+                'danlapteacru/facetwp-builder/allowed_facet_types',
+                $facetTypes,
+            );
+        }
+
+        return $facetTypes;
+    }
+
     /**
      * Add the facets method to the builder
      *
-     * @throws BadMethodCallException|FacetNameCollisionException If the method is not allowed.
+     * @throws BadMethodCallException If the method is not allowed.
      */
     public function __call(string $method, array $args): Builder
     {
@@ -240,7 +250,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
         $methodName = lcfirst(substr($method, 3));
         $keyName = $this->camelCaseToSnakeCase($methodName);
-        $allowedFacetTypes = static::ALLOWED_FACET_TYPES;
+        $allowedFacetTypes = static::getAllowedFacetTypes();
 
         if (function_exists('apply_filters')) {
             $keyName = apply_filters(
@@ -249,17 +259,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
                 $methodName,
                 $method,
                 $args,
-                $this
-            );
-
-            $allowedFacetTypes = apply_filters(
-                'danlapteacru/facetwp-builder/allowed_facet_types',
-                $allowedFacetTypes,
-                $keyName,
-                $methodName,
-                $method,
-                $args,
-                $this
+                $this,
             );
         }
 
@@ -287,6 +287,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Get a facet by name
+     *
      * @throws FacetNotFoundException If the facet does not exist.
      */
     public function getFacet(string $name): FacetBuilder

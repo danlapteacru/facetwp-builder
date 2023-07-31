@@ -69,7 +69,6 @@ trait Builder
     }
 
     /**
-     * @param string $key
      * @return $this
      */
     public function setKey(string $key): static
