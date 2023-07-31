@@ -42,11 +42,16 @@ trait Helpers
      */
     public static function isMultidimensionalArray(array $array): bool
     {
+        if (empty($array)) {
+            return false;
+        }
+
         foreach ($array as $value) {
-            if (is_array($value)) {
-                return true;
+            if (! is_array($value)) {
+                return false;
             }
         }
-        return false;
+
+        return true;
     }
 }
