@@ -36,4 +36,22 @@ trait Helpers
         $value = preg_replace('/\s+/u', '', ucwords($string));
         return strtolower(preg_replace('/(.)(?=[A-Z])/u', '$1_', $value));
     }
+
+    /**
+     * Tests if an array is multidimensional.
+     */
+    public static function isMultidimensionalArray(array $array): bool
+    {
+        if (empty($array)) {
+            return false;
+        }
+
+        foreach ($array as $value) {
+            if (! is_array($value)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
