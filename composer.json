@@ -1,26 +1,20 @@
 {
-  "name": "itinerisltd/facetwp-builder",
-  "description": "An Advanced FacetWP Configuration Builder for Itineris WordPress projects.",
+  "name": "danlapteacru/facetwp-builder",
+  "description": "An Advanced FacetWP Builder for facets and templates.",
   "license": "MIT",
   "type": "package",
   "authors": [
-    {
-      "name": "Itineris Limited",
-      "email": "dev@itineris.co.uk",
-      "homepage": "https://itineris.co.uk/",
-      "role": "Company"
-    },
     {
       "name": "Dan Lapteacru",
       "email": "danlapteacru@gmail.com",
       "role": "Developer"
     }
   ],
-  "homepage": "https://github.com/itinerisltd/facetwp-builder/",
+  "homepage": "https://github.com/danlapteacru/facetwp-builder/",
   "support": {
-    "email": "dev@itineris.co.uk",
-    "issues": "https://github.com/ItinerisLtd/facetwp-builder/issues",
-    "source": "https://github.com/ItinerisLtd/facetwp-builder"
+    "email": "danlapteacru@gmail.com",
+    "issues": "https://github.com/danlapteacru/facetwp-builder/issues",
+    "source": "https://github.com/danlapteacru/facetwp-builder"
   },
   "require": {
     "php": "^8.1",
@@ -29,11 +23,8 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "Itineris\\FacetWpBuilder\\": "src/"
-    },
-    "files": [
-      "src/helpers.php"
-    ]
+      "DanLapteacru\\FacetWpBuilder\\": "src/"
+    }
   },
   "config": {
     "allow-plugins": {
@@ -44,11 +35,6 @@
     "sort-packages": true
   },
   "extra": {
-    "acorn": {
-      "providers": [
-        "Itineris\\FacetWpBuilder\\Providers\\FacetWpBuilderServiceProvider"
-      ]
-    },
     "branch-alias": {
       "dev-master": "0.1.x-dev"
     }
@@ -56,8 +42,5 @@
   "scripts": {
     "style:check": "phpcs",
     "style:fix": "phpcbf"
-  },
-  "require-dev": {
-    "roots/acorn": "^3.1"
   }
 }

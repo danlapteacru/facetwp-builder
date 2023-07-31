@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="Plugin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
-    <!-- Check only our site MU plugin -->
+    <!-- Check only package src folder -->
     <file>src</file>
 
     <!-- Show colors in console -->
@@ -17,9 +17,19 @@
 
     <config name="minimum_supported_wp_version" value="6.2" />
 
+    <rule ref="Squiz.Commenting.FunctionComment.ParamCommentFullStop">
+      <severity>0</severity>
+    </rule>
+
     <rule ref="WordPress.WP.I18n">
         <properties>
-            <property name="text_domain" type="array" value="itineris" />
+            <property name="text_domain" type="array" value="facetwp-builder" />
         </properties>
     </rule>
+
+    <!--
+    Prevent errors caused by WordPress Coding Standards not supporting PHP 8.0+.
+    TODO: Remove this when WordPress Coding Standards supports PHP 8.0+.
+    -->
+    <ini name="error_reporting" value="E_ALL &#38; ~E_DEPRECATED" />
 </ruleset>
