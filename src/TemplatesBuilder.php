@@ -4,45 +4,19 @@ declare(strict_types=1);
 
 namespace DanLapteacru\FacetWpBuilder;
 
-use BadMethodCallException;
 use DanLapteacru\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
-use DanLapteacru\FacetWpBuilder\Exceptions\FacetNameCollisionException;
-use DanLapteacru\FacetWpBuilder\Exceptions\FacetNotFoundException;
 use DanLapteacru\FacetWpBuilder\Interfaces\Builder;
 use DanLapteacru\FacetWpBuilder\Interfaces\NamedBuilder;
 use DanLapteacru\FacetWpBuilder\Traits\Helpers;
 
 /**
  * Builds configurations for FaceWP templates.
+ *
+ * @see https://facetwp.com/help-center/developers/hooks/advanced-hooks/facetwp_templates/
  */
 class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
 {
     use Helpers;
-
-    /**
-     * Allowed Facet Types
-     * You can see the full list of allowed types here: https://facetwp.com/help-center/facets/facet-types/
-     *
-     * @var array
-     */
-    public const ALLOWED_FACET_TYPES = [
-        'autocomplete',
-        'checkbox',
-        'date_range',
-        'dropdown',
-        'hierarchy',
-        'fselect',
-        'number_range',
-        'search',
-        'slider',
-        'sort',
-        'star_rating',
-        'pager',
-        'proximity',
-        'radio',
-        'reset',
-        'user_selection',
-    ];
 
     /**
      * Facet Group Configuration
@@ -57,22 +31,19 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
     protected TemplateManager $templateManager;
 
     /**
-     * Facet Group Name
+     * Template Name
      */
     protected string $name;
 
     /**
-     * @param string $name Facet Group name
-     * @param array  $groupConfig Facet Group configuration
+     * @param string $name templates group name
      */
-    public function __construct(string $name, array $groupConfig = [])
+    public function __construct(string $name = 'default')
     {
         $this->templateManager = new TemplateManager();
         $this->name = $name;
-        $this->setGroupConfig('key', $name);
-        $this->setGroupConfig('title', $this->generateLabel($name));
-
-        $this->config = array_merge($this->config, $groupConfig);
+        $this->setConfig('name', $name);
+        $this->setConfig('label', $this->generateLabel($name));
     }
 
     /**
@@ -80,7 +51,7 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
      *
      * @return $this
      */
-    public function setGroupConfig(string $key, mixed $value): static
+    public function setConfig(string $key, mixed $value): static
     {
         $this->config[$key] = $value;
 
@@ -96,34 +67,41 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
      * Build the final config array. Build any other builders that may exist
      * in the config.
      *
-     * @param bool $returnOnlyTemplatesArray Whether to return the facets array or not.
      * @return array Final facet config
      */
-    public function build(bool $returnOnlyTemplatesArray = false): array
+    public function build(): array
     {
-        $facets = $this->buildFacets();
+        $facets = $this->buildTemplates();
         if (function_exists('apply_filters')) {
             $facets = apply_filters(
-                'itineris/facetwp-builder/templates',
+                'danlapteacru/facetwp-builder/templates',
                 $facets,
-                $this
+                $this,
             );
-        }
-
-        if (! $returnOnlyTemplatesArray) {
-            $this->addTemplateWpHook($facets);
         }
 
         return $facets;
     }
 
-    public function addTemplateWpHook(array $templates): void
+    /**
+     * Add the templates to FacetWP via the "facetwp_templates" filter.
+     *
+     * @param array $templates
+     */
+    public static function addFacetWpHook(array $templates = []): void
     {
         if (empty($templates) || ! function_exists('add_filter')) {
             return;
         }
 
-        add_filter('facetwp_templates', fn (array $facetWpTemplates): array => array_merge($facetWpTemplates, $facets));
+        if (! static::isMultidimensionalArray($templates)) {
+            $templates = [$templates];
+        }
+
+        add_filter(
+            'facetwp_templates',
+            fn (array $facetWpTemplates): array => array_merge($facetWpTemplates, $templates)
+        );
     }
 
     /**
@@ -131,29 +109,17 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
      *
      * @return array
      */
-    private function buildFacets(): array
+    private function buildTemplates(): array
     {
-        $facets = array_map(
+        return array_map(
             fn (array|Builder $facet): array => ($facet instanceof Builder) ? $facet->build() : $facet,
             $this->getTemplates(),
         );
-
-        return $this->transformFacets($facets);
-    }
-
-    /**
-     * Apply facet transforms
-     *
-     * @param array $facets
-     * @return array Transformed facets config
-     */
-    private function transformFacets(array $facets): array
-    {
-        return $facets;
     }
 
     /**
      * Add multiple facets either via an array or from another builder
+     *
      * @throws FacetNameCollisionException If the facet name already exists.
      */
     public function addTemplates(array|FacetsBuilder $facets): static
@@ -174,68 +140,24 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
      * Add a facet of a specific type
      *
      * @param string $name facet name
-     * @param string $type facet type
      * @param array  $args facet configuration
+     * @throws FacetNameCollisionException If the template name already exists.
      */
-    public function addTemplate(string $name, string $type, array $args = []): TemplateBuilder
+    public function addTemplate(string $name, array $args = []): TemplateBuilder
     {
-        return $this->initializeFacet(new TemplateBuilder($name, $type, $args));
+        return $this->initializeFacet(new TemplateBuilder($name, $args));
     }
 
     /**
      * Initialize the TemplateBuilder, add to TemplateManager, and return the TemplateBuilder
-     */
-    protected function initializeFacet(TemplateBuilder $facet): TemplateBuilder
-    {
-        $facet->setParentContext($this);
-        $this->getTemplateManager()->pushFacet($facet);
-        return $facet;
-    }
-
-    /**
-     * Add the facets method to the builder
      *
-     * @throws BadMethodCallException If the method is not allowed.
+     * @throws FacetNameCollisionException If the template name already exists.
      */
-    public function __call(string $method, array $args): Builder
+    protected function initializeFacet(TemplateBuilder $template): TemplateBuilder
     {
-        $name = (string) ($args[0] ?? '');
-        if (! str_starts_with($method, 'add') || empty($name)) {
-            return $this;
-        }
-
-        $methodName = lcfirst(substr($method, 3));
-        $keyName = $this->camelCaseToSnakeCase($methodName);
-        $allowedFacetTypes = static::ALLOWED_FACET_TYPES;
-
-        if (function_exists('apply_filters')) {
-            $keyName = apply_filters(
-                'itineris/facetwp-builder/facet_key',
-                $keyName,
-                $methodName,
-                $method,
-                $args,
-                $this
-            );
-
-            $allowedFacetTypes = apply_filters(
-                'itineris/facetwp-builder/allowed_facet_types',
-                $allowedFacetTypes,
-                $keyName,
-                $methodName,
-                $method,
-                $args,
-                $this
-            );
-        }
-
-        if (! in_array($keyName, $allowedFacetTypes, true)) {
-            throw new BadMethodCallException("Undefined method: '$method'");
-        }
-
-        $value = (array) ($args[1] ?? []);
-
-        return $this->addTemplate($name, $keyName, $value);
+        $template->setParentContext($this);
+        $this->getTemplateManager()->pushFacet($template);
+        return $template;
     }
 
     protected function getTemplateManager(): TemplateManager
@@ -252,8 +174,9 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
     }
 
     /**
-     * Get a facet by name
-     * @throws FacetNotFoundException If the facet does not exist.
+     * Get a Template by name
+     *
+     * @throws FacetNotFoundException If the Template does not exist.
      */
     public function getTemplate(string $name): TemplateBuilder
     {
@@ -261,7 +184,7 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
     }
 
     /**
-     * Check if a facet exists
+     * Check if a template exists
      */
     public function templateExists(string $name): bool
     {

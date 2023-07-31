@@ -75,4 +75,9 @@ trait Builder
     {
         return $this->setConfig('type', $key);
     }
+
+    public function getOption(string $key, mixed $default = null): mixed
+    {
+        return $this->config[$key] ?? $default;
+    }
 }
