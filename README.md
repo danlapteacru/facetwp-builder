@@ -382,7 +382,7 @@ return [
   ]);
 ```
 
-**Attention!** The `query` key should contain a PHP code string. If you prefer to use a PHP array, utilize the `query_obj` key instead.
+**Attention!** The `query` key should contain a PHP code string. If you prefer to use a PHP array, utilize the `setQuery` helper function instead.
 
 Here are some available declarative shortcut functions for the `addTemplate` method:
 
@@ -400,7 +400,6 @@ $builder
     ->setQueryObj([
       'post_type' => 'course',
     ])
-    ->setLayout([])
     ->setModes([
       'display' => 'visual',
       'query' => 'advanced',
@@ -415,7 +414,7 @@ Example:
 $builder
     ->addTemplate('course')
     ->setPostType('course')
-    ->setPostsPerPage(23)
+    ->setPostsPerPage(9)
 ```
 
 ##### Default Label
