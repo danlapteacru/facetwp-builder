@@ -13,5 +13,5 @@ use DanLapteacru\FacetWpBuilder\Abstracts\Facet;
  */
 class Checkbox extends Facet
 {
-    public const TYPE = 'checkbox';
+    public const TYPE = 'checkboxes';
 }
