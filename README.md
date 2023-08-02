@@ -6,7 +6,7 @@ Create, register, and reuse [FacetWP](https://facetwp.com/) plugin facets/templa
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/danlapteacru/facetwp-builder.svg?style=flat-square)](https://packagist.org/packages/danlapteacru/facetwp-builder)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/danlapteacru/facetwp-builder.svg?label=packagist%20downloads&style=flat-square)](https://packagist.org/packages/danlapteacru/facetwp-builder/stats)
 [![GitHub License](https://img.shields.io/github/license/danlapteacru/facetwp-builder.svg?style=flat-square)](https://github.com/danlapteacru/facetwp-builder/blob/master/LICENSE)
-[![Hire Me](https://img.shields.io/badge/Hire-Me-ff69b4.svg?style=flat-square)](danlapteacru@gmail.com)
+[![Hire Me](https://img.shields.io/badge/Hire-Me-ff69b4.svg?style=flat-square)](mailto:danlapteacru@gmail.com)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -445,7 +445,7 @@ $builder
     ]);
 ```
 
-If you want to use a facet type which is not defined in the [ALLOWED_FACET_TYPES](https://github.com/danlapteacru/facetwp-builder/blob/main/src/FacetsBuilder.php#L66) constant, you can use the `addAllowedFacetType` method or [danlapteacru/facetwp-builder/allowed_facet_types](#danlapteacrufacetwp-builderallowedfacettypes) hook to add it.
+If you want to use a facet type which is not defined in the [ALLOWED_FACET_TYPES](https://github.com/danlapteacru/facetwp-builder/blob/main/src/FacetsBuilder.php#L66) constant, you can use the `addAllowedFacetType` method or [danlapteacru/facetwp-builder/allowed_facet_types](#danlapteacrufacetwp-builderallowed_facet_types) hook to add it.
 
 ## Hooks
 
