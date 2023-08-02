@@ -13,5 +13,5 @@ use DanLapteacru\FacetWpBuilder\Abstracts\Facet;
  */
 class StarRating extends Facet
 {
-    public const TYPE = 'star_rating';
+    public const TYPE = 'rating';
 }

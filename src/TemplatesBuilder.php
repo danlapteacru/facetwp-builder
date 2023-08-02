@@ -69,7 +69,7 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
      *
      * @return array Final facet config
      */
-    public function build(): array
+    public function build(bool $addTemplatesToWpHook = true): array
     {
         $facets = $this->buildTemplates();
         if (function_exists('apply_filters')) {
@@ -78,6 +78,10 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
                 $facets,
                 $this,
             );
+        }
+
+        if ($addTemplatesToWpHook) {
+            static::addFacetWpHook($facets);
         }
 
         return $facets;

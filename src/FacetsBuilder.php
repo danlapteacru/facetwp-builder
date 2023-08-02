@@ -102,7 +102,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
     /**
      * @param string $name Facet Group name
      */
-    public function __construct(string $name)
+    public function __construct(string $name = 'default')
     {
         $this->facetManager = new FacetManager();
         $this->name = $name;
@@ -133,7 +133,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
      *
      * @return array Final facet config array, ready to be passed to FacetWP via the facetwp_facets filter
      */
-    public function build(): array
+    public function build(bool $addArrayToWpHook = true): array
     {
         $facets = $this->buildFacets();
         if (function_exists('apply_filters')) {
@@ -142,6 +142,10 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
                 $facets,
                 $this,
             );
+        }
+
+        if ($addArrayToWpHook) {
+            static::addFacetWpHook($facets);
         }
 
         return $facets;
