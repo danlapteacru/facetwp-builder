@@ -446,7 +446,7 @@ $builder
     ]);
 ```
 
-If you want to use a facet type which is not defined in the [ALLOWED_CONFIG_KEYS](https://github.com/danlapteacru/facetwp-builder/blob/main/src/FacetBuilder.php#L48) constant, you can use the `addAllowedFacetType` method or [danlapteacru/facetwp-builder/allowed_facet_types](#danlapteacrufacetwp-builderallowedfacettypes) hook to add it.
+If you want to use a facet type which is not defined in the [ALLOWED_FACET_TYPES](https://github.com/danlapteacru/facetwp-builder/blob/main/src/FacetsBuilder.php#L66) constant, you can use the `addAllowedFacetType` method or [danlapteacru/facetwp-builder/allowed_facet_types](#danlapteacrufacetwp-builderallowedfacettypes) hook to add it.
 
 ## Hooks
 
