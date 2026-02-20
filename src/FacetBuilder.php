@@ -77,8 +77,6 @@ class FacetBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Additional Field Configuration
-     *
-     * @var array
      */
     private array $config;
 

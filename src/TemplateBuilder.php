@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Itineris\FacetWpBuilder;
 
+use Exception;
 use Itineris\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
 use Itineris\FacetWpBuilder\Interfaces\Builder;
 use Itineris\FacetWpBuilder\Interfaces\NamedBuilder;
 use Itineris\FacetWpBuilder\Traits\Builder as BuilderTrait;
 use Itineris\FacetWpBuilder\Traits\Helpers;
-use Exception;
 use WP_Post_Type;
 
 /**
@@ -22,8 +22,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Additional Field Configuration
-     *
-     * @var array
      */
     private array $config;
 
@@ -75,8 +73,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Set the template query.
-     *
-     * @param array $query
      */
     public function setQuery(array $query): Builder
     {
@@ -87,8 +83,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
     /**
      * Convert an array to a string.
      * FacetWP requires the query to be a string.
-     *
-     * @param array $array
      */
     public function arrayToString(array $array): string
     {
@@ -119,8 +113,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Set the template query Object.
-     *
-     * @param array $query
      */
     public function setQueryObj(array $query): Builder
     {
@@ -129,8 +121,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Set the template layout.
-     *
-     * @param array $layout
      */
     public function setLayout(array $layout): Builder
     {
@@ -139,8 +129,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Set the template modes.
-     *
-     * @param array $modes
      */
     public function setModes(array $modes): Builder
     {

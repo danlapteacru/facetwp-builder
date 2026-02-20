@@ -84,8 +84,6 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Facet Group Configuration
-     *
-     * @var array
      */
     protected array $config = [];
 
@@ -153,8 +151,6 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Add the facets to FacetWP via the "facetwp_facets" filter.
-     *
-     * @param array $facets
      */
     public static function addFacetWpHook(array $facets = []): void
     {
@@ -171,8 +167,6 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Return a facets config array
-     *
-     * @return array
      */
     private function buildFacets(): array
     {

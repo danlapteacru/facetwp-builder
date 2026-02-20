@@ -9,9 +9,6 @@ namespace Itineris\FacetWpBuilder\Traits;
  */
 trait Builder
 {
-    /**
-     * @return array
-     */
     public function getConfig(): array
     {
         return $this->config;
@@ -30,7 +27,6 @@ trait Builder
     /**
      * Update multiple config values using and array of key -> value pairs.
      *
-     * @param array $config
      * @return $this
      */
     public function updateConfig(array $config): static

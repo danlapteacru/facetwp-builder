@@ -20,8 +20,6 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Facet Group Configuration
-     *
-     * @var array
      */
     protected array $config = [];
 
@@ -89,8 +87,6 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Add the templates to FacetWP via the "facetwp_templates" filter.
-     *
-     * @param array $templates
      */
     public static function addFacetWpHook(array $templates = []): void
     {
@@ -104,14 +100,12 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
 
         add_filter(
             'facetwp_templates',
-            fn (array $facetWpTemplates): array => array_merge($facetWpTemplates, $templates)
+            fn (array $facetWpTemplates): array => array_merge($facetWpTemplates, $templates),
         );
     }
 
     /**
      * Return a facets config array
-     *
-     * @return array
      */
     private function buildTemplates(): array
     {

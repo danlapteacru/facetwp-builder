@@ -17,8 +17,6 @@ abstract class FacetWpManager
 {
     /**
      * Array of the facets
-     *
-     * @var array
      */
     private array $items;
 
