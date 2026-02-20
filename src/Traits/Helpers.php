@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DanLapteacru\FacetWpBuilder\Traits;
+namespace Itineris\FacetWpBuilder\Traits;
 
 trait Helpers
 {
