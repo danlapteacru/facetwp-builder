@@ -2,11 +2,10 @@
 
 Create, register, and reuse [FacetWP](https://facetwp.com/) plugin facets/templates using PHP, and keep them in your source code repository. To read more about registering FacetWP facets and templates via PHP, go here: [facets documentation](https://facetwp.com/help-center/developers/hooks/advanced-hooks/facetwp_facets/) and [templates documentation](https://facetwp.com/help-center/developers/hooks/advanced-hooks/facetwp_templates/).
 
-[![Packagist Version](https://img.shields.io/packagist/v/danlapteacru/facetwp-builder.svg?label=release&style=flat-square)](https://packagist.org/packages/danlapteacru/facetwp-builder)
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/danlapteacru/facetwp-builder.svg?style=flat-square)](https://packagist.org/packages/danlapteacru/facetwp-builder)
-[![Packagist Downloads](https://img.shields.io/packagist/dt/danlapteacru/facetwp-builder.svg?label=packagist%20downloads&style=flat-square)](https://packagist.org/packages/danlapteacru/facetwp-builder/stats)
-[![GitHub License](https://img.shields.io/github/license/danlapteacru/facetwp-builder.svg?style=flat-square)](https://github.com/danlapteacru/facetwp-builder/blob/master/LICENSE)
-[![Hire Me](https://img.shields.io/badge/Hire-Me-ff69b4.svg?style=flat-square)](mailto:danlapteacru@gmail.com)
+[![Packagist Version](https://img.shields.io/packagist/v/itinerisltd/facetwp-builder.svg?label=release&style=flat-square)](https://packagist.org/packages/itinerisltd/facetwp-builder)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/itinerisltd/facetwp-builder.svg?style=flat-square)](https://packagist.org/packages/itinerisltd/facetwp-builder)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/itinerisltd/facetwp-builder.svg?label=packagist%20downloads&style=flat-square)](https://packagist.org/packages/itinerisltd/facetwp-builder/stats)
+[![GitHub License](https://img.shields.io/github/license/itinerisltd/facetwp-builder.svg?style=flat-square)](https://github.com/itinerisltd/facetwp-builder/blob/master/LICENSE)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -31,7 +30,7 @@ Create, register, and reuse [FacetWP](https://facetwp.com/) plugin facets/templa
 ## Installation
 
 ```bash
-composer require danlapteacru/facetwp-builder
+composer require itinerisltd/facetwp-builder
 ```
 
 If your project isn't using composer, you can require the `autoload.php` file.
@@ -40,13 +39,13 @@ If your project isn't using composer, you can require the `autoload.php` file.
 
 ## Table of Contents
 
-| [Facets](#facets)                   | [Templates](#templates)            | 
+| [Facets](#facets)                   | [Templates](#templates)            |
 |:------------------------------------|:-----------------------------------|
 | [Autocomplete](#autocomplete)       | [Add a template](#add-a-template)  |
 | [Checkbox](#checkbox)               |                                    |
 | [Date Range](#date-range)           |                                    |
 | [Dropdown](#dropdown)               |                                    |
-| [fSelect](#f-select)                |                                    |
+| [fSelect](#fselect)                 |                                    |
 | [Hierarchy](#hierarchy)             |                                    |
 | [Number Range](#number-range)       |                                    |
 | [Pager](#pager)                     |                                    |
@@ -65,257 +64,239 @@ You can find a full reference of available facets on the [official FacetWP docum
 
 #### Autocomplete
 ```php
-$builder
-    ->addAutocomplete('autocomplete', [
-        'label' => 'Autocomplete',
-        'source' => 'post_title',
-        'placeholder' => 'Placeholder',
-  ]);
+$builder->addAutocomplete('autocomplete', [
+    'label' => 'Autocomplete',
+    'source' => 'post_title',
+    'placeholder' => 'Placeholder',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/autocomplete/)
 
 #### Checkboxes
 ```php
-$builder
-    ->addCheckbox('checkbox', [
-        'label' => 'Categories',
-        'source' => 'tax/category',
-        'parent_term' => '',
-        'hierarchical' => 'no',
-        'show_expanded' => 'no',
-        'ghosts' => 'no',
-        'preserve_ghosts' => 'no',
-        'operator' => 'and',
-        'orderby' => 'count',
-        'count' => '10',
-        'soft_limit' => '5',
-  ]);
+$builder->addCheckbox('checkbox', [
+    'label' => 'Categories',
+    'source' => 'tax/category',
+    'parent_term' => '',
+    'hierarchical' => 'no',
+    'show_expanded' => 'no',
+    'ghosts' => 'no',
+    'preserve_ghosts' => 'no',
+    'operator' => 'and',
+    'orderby' => 'count',
+    'count' => '10',
+    'soft_limit' => '5',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/checkboxes/)
 
 #### Date Range
 ```php
-$builder
-    ->addDateRange('date_range', [
-        'label' => 'Date Range',
-        'source' => 'post_type',
-        'compare_type' => '',
-        'fields' => 'both',
-        'format' => '',
-  ]);
+$builder->addDateRange('date_range', [
+    'label' => 'Date Range',
+    'source' => 'post_date',
+    'compare_type' => '',
+    'fields' => 'both',
+    'format' => '',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/date-range/)
 
 #### Dropdown
 ```php
-$builder
-    ->addDropdown('dropdown', [
-        'label' => 'Dropdown',
-        'source' => 'post_type',
-        'label_any' => 'Any',
-        'parent_term' => '',
-        'modifier_type' => 'off',
-        'modifier_values' => '',
-        'hierarchical' => 'no',
-        'orderby' => 'count',
-        'count' => '10',
-  ]);
+$builder->addDropdown('dropdown', [
+    'label' => 'Dropdown',
+    'source' => 'tax/category',
+    'label_any' => 'Any',
+    'parent_term' => '',
+    'modifier_type' => 'off',
+    'modifier_values' => '',
+    'hierarchical' => 'no',
+    'orderby' => 'count',
+    'count' => '10',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/dropdown/)
 
 #### fSelect
 ```php
-$builder
-    ->addFselect('fselect', [
-        'label' => 'fSelect',
-        'source' => 'post_type',
-        'label_any' => 'Any',
-        'parent_term' => '',
-        'modifier_type' => 'off',
-        'modifier_values' => '',
-        'hierarchical' => 'no',
-        'multiple' => 'no',
-        'ghosts' => 'no',
-        'preserve_ghosts' => 'no',
-        'operator' => 'and',
-        'orderby' => 'count',
-        'count' => '10',
-  ]);
+$builder->addFselect('fselect', [
+    'label' => 'fSelect',
+    'source' => 'tax/category',
+    'label_any' => 'Any',
+    'parent_term' => '',
+    'modifier_type' => 'off',
+    'modifier_values' => '',
+    'hierarchical' => 'no',
+    'multiple' => 'no',
+    'ghosts' => 'no',
+    'preserve_ghosts' => 'no',
+    'operator' => 'and',
+    'orderby' => 'count',
+    'count' => '10',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/fselect/)
 
 #### Hierarchy
 ```php
-$builder
-    ->addHierarchy('hierarchy', [
-        'label' => 'Hierarchy',
-        'source' => 'post_type',
-        'label_any' => 'Any',
-        'modifier_type' => 'off',
-        'modifier_values' => '',
-        'orderby' => 'count',
-        'soft_limit' => '5',
-  ]);
+$builder->addHierarchy('hierarchy', [
+    'label' => 'Hierarchy',
+    'source' => 'tax/category',
+    'label_any' => 'Any',
+    'modifier_type' => 'off',
+    'modifier_values' => '',
+    'orderby' => 'count',
+    'soft_limit' => '5',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/hierarchy/)
 
 #### Number Range
 ```php
-$builder
-    ->addNumberRange('number_range', [
-        'label' => 'Number Range',
-        'source' => 'post_type',
-        'compare_type' => '',
-        'fields' => 'both',
-  ]);
+$builder->addNumberRange('number_range', [
+    'label' => 'Number Range',
+    'source' => 'post_meta/price',
+    'compare_type' => '',
+    'fields' => 'both',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/number-range/)
 
 #### Pager
 ```php
-$builder
-    ->addPager('pager', [
-        'label' => 'Pager',
-        'pager_type' => 'numbers',
-        'inner_size' => '2',
-        'dots_label' => '…',
-        'prev_label' => '« Prev',
-        'next_label' => 'Next »',
-        'count_text_plural' => '[lower] - [upper] of [total] results',
-        'count_text_singular' => '1 result',
-        'count_text_none' => 'No results',
-        'load_more_text' => 'Load more',
-        'loading_text' => 'Loading...',
-        'default_label' => 'Per page',
-        'per_page_options' => '10, 25, 50, 100',
-  ]);
+$builder->addPager('pager', [
+    'label' => 'Pager',
+    'pager_type' => 'numbers',
+    'inner_size' => '2',
+    'dots_label' => '…',
+    'prev_label' => '« Prev',
+    'next_label' => 'Next »',
+    'count_text_plural' => '[lower] - [upper] of [total] results',
+    'count_text_singular' => '1 result',
+    'count_text_none' => 'No results',
+    'load_more_text' => 'Load more',
+    'loading_text' => 'Loading...',
+    'default_label' => 'Per page',
+    'per_page_options' => '10, 25, 50, 100',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/pager/)
 
 #### Proximity
 ```php
-$builder
-    ->addProximity('proximity', [
-        'label' => 'Proximity',
-        'source' => 'post_type',
-        'unit' => 'mi',
-        'radius_ui' => 'dropdown',
-        'radius_options' => '10, 25, 50, 100, 250',
-        'radius_min' => '1',
-        'radius_max' => '50',
-        'radius_default' => '25',
-        'placeholder' => '',
-  ]);
+$builder->addProximity('proximity', [
+    'label' => 'Proximity',
+    'source' => 'post_meta/location',
+    'unit' => 'mi',
+    'radius_ui' => 'dropdown',
+    'radius_options' => '10, 25, 50, 100, 250',
+    'radius_min' => '1',
+    'radius_max' => '50',
+    'radius_default' => '25',
+    'placeholder' => '',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/proximity/)
 
 #### Radio
 ```php
-$builder
-    ->addRadio('radio', [
-        'label' => 'Radio',
-        'source' => 'post_type',
-        'label_any' => 'Any',
-        'parent_term' => '',
-        'modifier_type' => 'off',
-        'modifier_values' => '',
-        'ghosts' => 'no',
-        'preserve_ghosts' => 'no',
-        'orderby' => 'count',
-        'count' => '10',
-  ]);
+$builder->addRadio('radio', [
+    'label' => 'Radio',
+    'source' => 'tax/category',
+    'label_any' => 'Any',
+    'parent_term' => '',
+    'modifier_type' => 'off',
+    'modifier_values' => '',
+    'ghosts' => 'no',
+    'preserve_ghosts' => 'no',
+    'orderby' => 'count',
+    'count' => '10',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/radio/)
 
 #### Reset
 ```php
-$builder
-    ->addReset('reset', [
-        'label' => 'Reset',
-        'reset_ui' => 'button',
-        'reset_text' => 'Reset',
-        'reset_mode' => 'off',
-        'auto_hide' => 'no',
-        'reset_facets' => [],
-  ]);
+$builder->addReset('reset', [
+    'label' => 'Reset',
+    'reset_ui' => 'button',
+    'reset_text' => 'Reset',
+    'reset_mode' => 'off',
+    'auto_hide' => 'no',
+    'reset_facets' => [],
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/reset/)
 
 #### Search
 ```php
-$builder
-    ->addSearch('search', [
-        'label' => 'Search',
-        'search_engine' => '',
-        'placeholder' => '',
-        'auto_refresh' => 'no',
-  ]);
+$builder->addSearch('search', [
+    'label' => 'Search',
+    'search_engine' => '',
+    'placeholder' => '',
+    'auto_refresh' => 'no',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/search/)
 
 #### Slider
 ```php
-$builder
-    ->addSlider('slider', [
-        'label' => 'Slider',
-        'source' => 'post_type',
-        'compare_type' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'reset_text' => 'Reset',
-        'format' => '0,0',
-        'step' => '1',
-  ]);
+$builder->addSlider('slider', [
+    'label' => 'Slider',
+    'source' => 'post_meta/price',
+    'compare_type' => '',
+    'prefix' => '',
+    'suffix' => '',
+    'reset_text' => 'Reset',
+    'format' => '0,0',
+    'step' => '1',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/slider/)
 
 #### Sort
 ```php
-$builder
-    ->addSort('sort', [
-        'label' => 'Sort',
-        'type' => 'sort',
-        'default_label' => 'Sort by',
-        'sort_options' => [
-            [
-                'label' => 'post_title',
-                'name' => 'post_title',
-                'orderby' => [
-                    [
-                        'key' => 'title',
-                        'order' => 'ASC',
-                        'type' => 'CHAR',
-                    ],
+$builder->addSort('sort', [
+    'label' => 'Sort',
+    'default_label' => 'Sort by',
+    'sort_options' => [
+        [
+            'label' => 'Title (A-Z)',
+            'name' => 'title_asc',
+            'orderby' => [
+                [
+                    'key' => 'title',
+                    'order' => 'ASC',
+                    'type' => 'CHAR',
                 ],
             ],
         ],
-  ]);
+    ],
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/sort/)
 
 #### Star Rating
 ```php
-$builder
-    ->addRating('star_rating', [
-        'label' => 'Star Rating',
-        'source' => 'post_type',
-  ]);
+$builder->addRating('star_rating', [
+    'label' => 'Star Rating',
+    'source' => 'post_meta/rating',
+]);
 ```
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/rating/)
 
 #### User Selections
 ```php
-$builder
-    ->addUserSelections('user_selections', [
-        'label' => 'User Selections',
-  ]);
+$builder->addUserSelections('user_selections', [
+    'label' => 'User Selections',
+]);
 ```
-TODO: Add available options.
-
 [Official Documentation](https://facetwp.com/help-center/facets/facet-types/user-selections/)
 
-### Shortcut functions
-If you don't want to use the second parameter of the add method, you can use the following shortcut functions:
+### Facet shortcut methods
+
+Instead of passing all options as an array to the add method, you can chain setter methods on the returned `FacetBuilder`. All setters transform values automatically (booleans become `'yes'`/`'no'` strings).
 
 ```php
 setName(string $name)
@@ -342,86 +323,118 @@ setFormat(string $format)
 setSourceOther(string $source_other)
 ```
 
+For custom/arbitrary attributes not in the list above, use `setAttr(string $name, mixed $value)` directly.
+
+### Managing facets
+
+`FacetsBuilder` exposes the following methods for working with its facet collection:
+
+```php
+// Add all facets from another FacetsBuilder or a plain array
+$builder->addFacets(array|FacetsBuilder $facets): static
+
+// Retrieve facets
+$builder->getFacets(): FacetBuilder[]
+$builder->getFacet(string $name): FacetBuilder   // throws FacetNotFoundException
+
+// Check existence
+$builder->facetExists(string $name): bool
+```
+
+### Building and registering
+
+Calling `build()` on the `FacetsBuilder` compiles the config and — by default — registers facets with FacetWP via the `facetwp_facets` WordPress filter.
+
+```php
+// Register with FacetWP (default)
+$builder->build();
+
+// Only build the array, skip WP hook registration
+$builder->build(addArrayToWpHook: false);
+
+// Register a pre-built array manually
+FacetsBuilder::addFacetWpHook(array $facets): void
+```
+
+**Note:** calling `build()` on the `FacetBuilder` returned by `addSearch()` / `addCheckbox()` / etc. builds only that single facet's config array and does **not** register anything with WordPress. Always call `$builder->build()` on the `FacetsBuilder` instance to register.
+
 ### Templates
 
 You can find a full reference of how to add a template with PHP on the [official FacetWP documentation](https://facetwp.com/help-center/developers/hooks/advanced-hooks/facetwp_templates/).
 
 #### Add a template
 
-You can add a template by using the `addTemplate` method.
+Use `addTemplate(string $name, array $args = [])` to add a template. It returns a `TemplateBuilder` for further configuration.
 
-Example:
+Example using the array form:
 
 ```php
-$builder
-    ->addTemplate('course', [
-        'name' => 'course',
-        'label' => 'Course',
-        'type' => 'course',
-        'query_array' => [
-            'post_type' => 'course',
-            'post_status' => 'publish',
-            'posts_per_page' => 10,
-            'orderby' => 'title',
-            'order' => 'asc'
-        ],
-        'query' => '<?php
-return [
-  \'post_type\' => \'course\',
-  \'post_status\' => \'publish\',
-  \'posts_per_page\' => 10,
-  \'orderby\' => \'title\',
-  \'order\' => \'asc\',
-];',
-        'modes' => [
-            'display' => 'visual',
-            'query' => 'advanced'
-        ],
-        '_code' => true
+$builder->addTemplate('course', [
+    'label' => 'Course',
+    'query_array' => [
+        'post_type' => 'course',
+        'post_status' => 'publish',
+        'posts_per_page' => 10,
+        'orderby' => 'title',
+        'order' => 'ASC',
     ],
-  ]);
+    'modes' => [
+        'display' => 'visual',
+        'query' => 'advanced',
+    ],
+]);
 ```
 
-**Attention!** The `query` key should contain a PHP code string. If you prefer to use a PHP array, utilize the `setQuery` helper function instead.
+**Attention!** The `query` key must contain a PHP code string. Use the `setQuery()` helper instead to pass a plain array and have it converted automatically.
 
-Here are some available declarative shortcut functions for the `addTemplate` method:
+#### Template shortcut methods
+
+```php
+setName(string $name)
+setLabel(string $label)
+setQuery(array $query)       // converts array to PHP string automatically
+setQueryObj(array $query)
+setLayout(array $layout)
+setModes(array $modes)
+setPostType(string $postType)       // throws Exception if post type not found
+setPostsPerPage(int $postsPerPage)
+```
+
+Example using chainable setters:
 
 ```php
 $builder
     ->addTemplate('course')
     ->setLabel('Course')
     ->setQuery([
-      'post_type' => 'course',
-      'post_status' => 'publish',
-      'posts_per_page' => 10,
-      'orderby' => 'title',
-      'order' => 'asc',
-    ])
-    ->setQueryObj([
-      'post_type' => 'course',
+        'post_type' => 'course',
+        'post_status' => 'publish',
+        'posts_per_page' => 10,
+        'orderby' => 'title',
+        'order' => 'ASC',
     ])
     ->setModes([
-      'display' => 'visual',
-      'query' => 'advanced',
-    ])
+        'display' => 'visual',
+        'query' => 'advanced',
+    ]);
+$builder->build();
 ```
 
-If you dont want to specify the `query` or `query_obj` keys, you can use the `setPostType` and `setPostsPerPage` methods to define the `post_type` and `posts_per_page` arguments.
-
-Example:
+`setPostType()` and `setPostsPerPage()` are convenience helpers that update both `query` and `query_obj` in one call:
 
 ```php
 $builder
     ->addTemplate('course')
     ->setPostType('course')
-    ->setPostsPerPage(9)
+    ->setPostsPerPage(9);
+$builder->build();
 ```
 
-##### Default Label
-If `setLabel` is not set, or the `addTemplate` arguments do not contain the `label` key, then the label will be generated from the template name/key.
+##### Default label
+If `setLabel()` is not called and no `label` key is passed to `addTemplate()`, the label is auto-generated from the template name.
 
-##### Default Modes
-If `setModes` is not set, or the `addTemplate` arguments do not contain the `modes` key, then the default `modes` will be used:
+##### Default modes
+If `setModes()` is not called and no `modes` key is passed, the following defaults are used:
 
 ```php
 [
@@ -430,79 +443,107 @@ If `setModes` is not set, or the `addTemplate` arguments do not contain the `mod
 ]
 ```
 
-## Composing Custom/3rd Party Addon Facets
+### Managing templates
 
-You can use the `addFacet` method to add a custom/3rd party addon facet.
-
-`addFacet(string $name, string $type, array $args = [])`
-
-Example:
+`TemplatesBuilder` exposes the following methods for working with its template collection:
 
 ```php
-$builder
-    ->addFacet('myFacetName', 'checkbox', [
-      'label' => 'My Facet Label',
-    ]);
+// Add all templates from another TemplatesBuilder or a plain array
+$builder->addTemplates(array|TemplatesBuilder $templates): static
+
+// Retrieve templates
+$builder->getTemplates(): TemplateBuilder[]
+$builder->getTemplate(string $name): TemplateBuilder   // throws FacetNotFoundException
+
+// Check existence
+$builder->templateExists(string $name): bool
 ```
 
-If you want to use a facet type which is not defined in the [ALLOWED_FACET_TYPES](https://github.com/danlapteacru/facetwp-builder/blob/main/src/FacetsBuilder.php#L66) constant, you can use the `addAllowedFacetType` method or [danlapteacru/facetwp-builder/allowed_facet_types](#danlapteacrufacetwp-builderallowed_facet_types) hook to add it.
+### Building and registering templates
+
+```php
+// Register with FacetWP (default)
+$builder->build();
+
+// Only build the array, skip WP hook registration
+$builder->build(addTemplatesToWpHook: false);
+
+// Register a pre-built array manually
+TemplatesBuilder::addFacetWpHook(array $templates): void
+```
+
+## Composing Custom/3rd Party Addon Facets
+
+Use `addFacet(string $name, string $type, array $args = [])` to add a facet with an arbitrary type string.
+
+```php
+$builder->addFacet('my_facet', 'checkbox', [
+    'label' => 'My Facet Label',
+]);
+```
+
+To use a type not in the built-in [`ALLOWED_FACET_TYPES`](https://github.com/itinerisltd/facetwp-builder/blob/main/src/FacetsBuilder.php#L66) constant, register it via the [`itinerisltd/facetwp-builder/allowed_facet_types`](#itinerisltdfacetwp-builderallowed_facet_types) filter hook.
 
 ## Hooks
 
-You can use the following hooks to modify the FacetWP Builder:
+### `itinerisltd/facetwp-builder/allowed_facet_types`
 
-### `danlapteacru/facetwp-builder/allowed_facet_types`
+Filter the list of allowed facet types. Use this to add support for custom or 3rd-party addon types.
 
-You can use this hook to add custom facet types to the FacetWP Builder.
+```php
+add_filter('itinerisltd/facetwp-builder/allowed_facet_types', function (array $types): array {
+    $types[] = 'my_custom_type';
+    return $types;
+});
+```
 
-### `danlapteacru/facetwp-builder/facets`
+### `itinerisltd/facetwp-builder/facets`
 
-You can use this hook to modify the facets array before it is returned.
+Filter the compiled facets array before it is returned by `FacetsBuilder::build()`.
 
-### `danlapteacru/facetwp-builder/facet_key`
+### `itinerisltd/facetwp-builder/facet_key`
 
-You can use this hook to modify the facet key before it is used to check if facet type exists.
+Filter the resolved facet type key before it is validated inside `FacetsBuilder::__call()`. Useful for aliasing method names to custom type strings.
 
-### `danlapteacru/facetwp-builder/templates`
+### `itinerisltd/facetwp-builder/templates`
 
-You can use this hook to modify the templates array before it is returned.
+Filter the compiled templates array before it is returned by `TemplatesBuilder::build()`.
 
 ## Examples
 
 ### Table of Contents
 
-| Examples                                  | 
+| Examples                                  |
 |:------------------------------------------|
-| [Add Facets](#add-facets)                 | 
-| [Add a custom facet](#add-a-custom-facet) | 
-| [Add Template](#add-template)             | 
+| [Add Facets](#add-facets)                 |
+| [Add a custom facet](#add-a-custom-facet) |
+| [Add Template](#add-template)             |
 
 ### Add Facets
 
 ```php
-use DanLapteacru\FacetWpBuilder\FacetsBuilder;
+use Itineris\FacetWpBuilder\FacetsBuilder;
 
 $builder = new FacetsBuilder();
 $builder
     ->addSearch('search')
     ->setLabel('Search')
     ->setPlaceholder('Search placeholder')
-    ->setAutoRefresh(true)
-    ->build();
+    ->setAutoRefresh(true);
+$builder->build();
 ```
 
 ### Add a custom facet
 
 ```php
-use DanLapteacru\FacetWpBuilder\FacetBuilder;
-use DanLapteacru\FacetWpBuilder\Facets\Checkbox;
-use DanLapteacru\FacetWpBuilder\FacetsBuilder;
+use Itineris\FacetWpBuilder\FacetBuilder;
+use Itineris\FacetWpBuilder\Facets\Checkbox;
+use Itineris\FacetWpBuilder\FacetsBuilder;
 
-$facet = new FacetBuilder(static::FACET_NAME, Checkbox::TYPE);
+$facet = new FacetBuilder('my_facet', Checkbox::TYPE);
 $facet
-    ->setLabel('Search')
-    ->setPlaceholder('Search placeholder')
-    ->setAutoRefresh(true);
+    ->setLabel('Categories')
+    ->setSource('tax/category');
 $facetArray = $facet->build();
 
 FacetsBuilder::addFacetWpHook($facetArray);
@@ -511,7 +552,7 @@ FacetsBuilder::addFacetWpHook($facetArray);
 ### Add Template
 
 ```php
-use DanLapteacru\FacetWpBuilder\TemplatesBuilder;
+use Itineris\FacetWpBuilder\TemplatesBuilder;
 
 $builder = new TemplatesBuilder();
 $builder
@@ -523,16 +564,16 @@ $builder
         'posts_per_page' => 8,
         'orderby' => 'title',
         'order' => 'ASC',
-    ])
-    ->build();
+    ]);
+$builder->build();
 ```
 
 ## Credits
 
-[FacetWP Builder](https://github.com/danlapteacru/facetwp-builder) is created by [Dan Lapteacru](https://github.com/danlapteacru).
+[FacetWP Builder](https://github.com/itinerisltd/facetwp-builder) is maintained by [Itineris](https://www.itineris.co.uk/), originally created by [Dan Lapteacru](https://github.com/danlapteacru).
 
-Full list of contributors can be found [here](https://github.com/danlapteacru/facetwp-builder/graphs/contributors).
+Full list of contributors can be found [here](https://github.com/itinerisltd/facetwp-builder/graphs/contributors).
 
 ## License
 
-[FacetWP Builder](https://github.com/danlapteacru/facetwp-builder) is released under the [MIT License](https://opensource.org/licenses/MIT).
+[FacetWP Builder](https://github.com/itinerisltd/facetwp-builder) is released under the [MIT License](https://opensource.org/licenses/MIT).

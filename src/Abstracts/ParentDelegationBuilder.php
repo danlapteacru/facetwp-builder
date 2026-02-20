@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DanLapteacru\FacetWpBuilder\Abstracts;
+namespace Itineris\FacetWpBuilder\Abstracts;
 
-use DanLapteacru\FacetWpBuilder\Interfaces\Builder;
+use Itineris\FacetWpBuilder\Interfaces\Builder;
 
 /**
  * Builds a configuration.

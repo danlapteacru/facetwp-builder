@@ -2,16 +2,13 @@
 
 declare(strict_types=1);
 
-namespace DanLapteacru\FacetWpBuilder\Traits;
+namespace Itineris\FacetWpBuilder\Traits;
 
 /**
  * Builder trait.
  */
 trait Builder
 {
-    /**
-     * @return array
-     */
     public function getConfig(): array
     {
         return $this->config;
@@ -30,7 +27,6 @@ trait Builder
     /**
      * Update multiple config values using and array of key -> value pairs.
      *
-     * @param array $config
      * @return $this
      */
     public function updateConfig(array $config): static
@@ -73,7 +69,7 @@ trait Builder
      */
     public function setKey(string $key): static
     {
-        return $this->setConfig('type', $key);
+        return $this->setConfig('key', $key);
     }
 
     public function getOption(string $key, mixed $default = null): mixed

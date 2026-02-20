@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace DanLapteacru\FacetWpBuilder;
+namespace Itineris\FacetWpBuilder;
 
-use DanLapteacru\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
-use DanLapteacru\FacetWpBuilder\Interfaces\Builder;
-use DanLapteacru\FacetWpBuilder\Interfaces\NamedBuilder;
-use DanLapteacru\FacetWpBuilder\Traits\Builder as BuilderTrait;
-use DanLapteacru\FacetWpBuilder\Traits\Helpers;
 use Exception;
+use Itineris\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
+use Itineris\FacetWpBuilder\Interfaces\Builder;
+use Itineris\FacetWpBuilder\Interfaces\NamedBuilder;
+use Itineris\FacetWpBuilder\Traits\Builder as BuilderTrait;
+use Itineris\FacetWpBuilder\Traits\Helpers;
 use WP_Post_Type;
 
 /**
@@ -22,8 +22,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Additional Field Configuration
-     *
-     * @var array
      */
     private array $config;
 
@@ -75,8 +73,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Set the template query.
-     *
-     * @param array $query
      */
     public function setQuery(array $query): Builder
     {
@@ -87,10 +83,13 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
     /**
      * Convert an array to a string.
      * FacetWP requires the query to be a string.
-     *
-     * @param array $array
      */
-    public function arrayToString(array $array, int $indent = 2): string
+    public function arrayToString(array $array): string
+    {
+        return '<?php' . PHP_EOL . 'return ' . $this->arrayToStringRecursive($array, 2) . ';' . PHP_EOL;
+    }
+
+    private function arrayToStringRecursive(array $array, int $indent): string
     {
         $output = '[' . PHP_EOL;
 
@@ -98,9 +97,9 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
             $output .= str_repeat(' ', $indent) . "'$key' => ";
 
             if (is_array($value)) {
-                $output .= $this->arrayToString($value, $indent + 2);
+                $output .= $this->arrayToStringRecursive($value, $indent + 2);
             } elseif (is_string($value)) {
-                $output .= "'$value'";
+                $output .= "'" . addslashes($value) . "'";
             } else {
                 $output .= $value;
             }
@@ -109,13 +108,11 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
         }
 
         $output .= str_repeat(' ', $indent - 2) . ']';
-        return '<?php' . PHP_EOL . 'return ' . $output . ';' . PHP_EOL;
+        return $output;
     }
 
     /**
      * Set the template query Object.
-     *
-     * @param array $query
      */
     public function setQueryObj(array $query): Builder
     {
@@ -124,8 +121,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Set the template layout.
-     *
-     * @param array $layout
      */
     public function setLayout(array $layout): Builder
     {
@@ -134,8 +129,6 @@ class TemplateBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Set the template modes.
-     *
-     * @param array $modes
      */
     public function setModes(array $modes): Builder
     {

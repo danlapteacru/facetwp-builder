@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace DanLapteacru\FacetWpBuilder;
+namespace Itineris\FacetWpBuilder;
 
-use DanLapteacru\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
-use DanLapteacru\FacetWpBuilder\Interfaces\Builder;
-use DanLapteacru\FacetWpBuilder\Interfaces\NamedBuilder;
-use DanLapteacru\FacetWpBuilder\Traits\Helpers;
+use Itineris\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
+use Itineris\FacetWpBuilder\Interfaces\Builder;
+use Itineris\FacetWpBuilder\Interfaces\NamedBuilder;
+use Itineris\FacetWpBuilder\Traits\Helpers;
 
 /**
  * Builds configurations for FaceWP templates.
@@ -20,8 +20,6 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Facet Group Configuration
-     *
-     * @var array
      */
     protected array $config = [];
 
@@ -74,7 +72,7 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
         $facets = $this->buildTemplates();
         if (function_exists('apply_filters')) {
             $facets = apply_filters(
-                'danlapteacru/facetwp-builder/templates',
+                'itinerisltd/facetwp-builder/templates',
                 $facets,
                 $this,
             );
@@ -89,8 +87,6 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
 
     /**
      * Add the templates to FacetWP via the "facetwp_templates" filter.
-     *
-     * @param array $templates
      */
     public static function addFacetWpHook(array $templates = []): void
     {
@@ -104,14 +100,12 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
 
         add_filter(
             'facetwp_templates',
-            fn (array $facetWpTemplates): array => array_merge($facetWpTemplates, $templates)
+            fn (array $facetWpTemplates): array => array_merge($facetWpTemplates, $templates),
         );
     }
 
     /**
      * Return a facets config array
-     *
-     * @return array
      */
     private function buildTemplates(): array
     {
@@ -126,11 +120,11 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
      *
      * @throws FacetNameCollisionException If the facet name already exists.
      */
-    public function addTemplates(array|FacetsBuilder $facets): static
+    public function addTemplates(array|TemplatesBuilder $facets): static
     {
-        if ($facets instanceof FacetsBuilder) {
+        if ($facets instanceof TemplatesBuilder) {
             $builder = clone $facets;
-            $facets = $builder->getFacets();
+            $facets = $builder->getTemplates();
         }
 
         foreach ($facets as $facet) {
