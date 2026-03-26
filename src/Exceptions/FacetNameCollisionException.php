@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder\Exceptions;
+namespace DanLapteacru\FacetWpBuilder\Exceptions;
 
 /**
  * Thrown when a sibling facet name already exists in a Builder

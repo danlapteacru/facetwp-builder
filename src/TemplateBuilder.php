@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder;
+namespace DanLapteacru\FacetWpBuilder;
 
 use Exception;
-use Itineris\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
-use Itineris\FacetWpBuilder\Interfaces\Builder;
-use Itineris\FacetWpBuilder\Interfaces\NamedBuilder;
-use Itineris\FacetWpBuilder\Traits\Builder as BuilderTrait;
-use Itineris\FacetWpBuilder\Traits\Helpers;
+use DanLapteacru\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
+use DanLapteacru\FacetWpBuilder\Interfaces\Builder;
+use DanLapteacru\FacetWpBuilder\Interfaces\NamedBuilder;
+use DanLapteacru\FacetWpBuilder\Traits\Builder as BuilderTrait;
+use DanLapteacru\FacetWpBuilder\Traits\Helpers;
 use WP_Post_Type;
 
 /**

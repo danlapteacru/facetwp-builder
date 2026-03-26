@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder;
+namespace DanLapteacru\FacetWpBuilder;
 
-use Itineris\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
-use Itineris\FacetWpBuilder\Interfaces\Builder;
-use Itineris\FacetWpBuilder\Interfaces\NamedBuilder;
-use Itineris\FacetWpBuilder\Traits\Helpers;
+use DanLapteacru\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
+use DanLapteacru\FacetWpBuilder\Interfaces\Builder;
+use DanLapteacru\FacetWpBuilder\Interfaces\NamedBuilder;
+use DanLapteacru\FacetWpBuilder\Traits\Helpers;
 
 /**
  * Builds configurations for FaceWP templates.
@@ -72,7 +72,7 @@ class TemplatesBuilder extends ParentDelegationBuilder implements NamedBuilder
         $facets = $this->buildTemplates();
         if (function_exists('apply_filters')) {
             $facets = apply_filters(
-                'itinerisltd/facetwp-builder/templates',
+                'danlapteacru/facetwp-builder/templates',
                 $facets,
                 $this,
             );

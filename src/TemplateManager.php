@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder;
+namespace DanLapteacru\FacetWpBuilder;
 
-use Itineris\FacetWpBuilder\Abstracts\FacetWpManager;
+use DanLapteacru\FacetWpBuilder\Abstracts\FacetWpManager;
 
 class TemplateManager extends FacetWpManager
 {

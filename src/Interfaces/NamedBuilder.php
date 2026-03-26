@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder\Interfaces;
+namespace DanLapteacru\FacetWpBuilder\Interfaces;
 
 /**
  * Builder with a name

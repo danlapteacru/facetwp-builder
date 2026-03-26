@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder\Abstracts;
+namespace DanLapteacru\FacetWpBuilder\Abstracts;
 
-use Itineris\FacetWpBuilder\Exceptions\FacetNameCollisionException;
-use Itineris\FacetWpBuilder\Exceptions\FacetNotFoundException;
-use Itineris\FacetWpBuilder\FacetBuilder;
-use Itineris\FacetWpBuilder\TemplateBuilder;
+use DanLapteacru\FacetWpBuilder\Exceptions\FacetNameCollisionException;
+use DanLapteacru\FacetWpBuilder\Exceptions\FacetNotFoundException;
+use DanLapteacru\FacetWpBuilder\FacetBuilder;
+use DanLapteacru\FacetWpBuilder\TemplateBuilder;
 use OutOfRangeException;
 
 /**
