@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace DanLapteacru\FacetWpBuilder;
 
-use Exception;
 use DanLapteacru\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
 use DanLapteacru\FacetWpBuilder\Interfaces\Builder;
 use DanLapteacru\FacetWpBuilder\Interfaces\NamedBuilder;
 use DanLapteacru\FacetWpBuilder\Traits\Builder as BuilderTrait;
 use DanLapteacru\FacetWpBuilder\Traits\Helpers;
+use Exception;
 use WP_Post_Type;
 
 /**
