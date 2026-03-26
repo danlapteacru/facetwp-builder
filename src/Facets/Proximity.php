@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder\Facets;
+namespace DanLapteacru\FacetWpBuilder\Facets;
 
-use Itineris\FacetWpBuilder\Abstracts\Facet;
+use DanLapteacru\FacetWpBuilder\Abstracts\Facet;
 
 /**
  * Proximity Facet type.

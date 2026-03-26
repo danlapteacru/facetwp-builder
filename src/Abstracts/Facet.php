@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder\Abstracts;
+namespace DanLapteacru\FacetWpBuilder\Abstracts;
 
 /**
  * Facet type.

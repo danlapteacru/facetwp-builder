@@ -2,10 +2,10 @@
 
 Create, register, and reuse [FacetWP](https://facetwp.com/) plugin facets/templates using PHP, and keep them in your source code repository. To read more about registering FacetWP facets and templates via PHP, go here: [facets documentation](https://facetwp.com/help-center/developers/hooks/advanced-hooks/facetwp_facets/) and [templates documentation](https://facetwp.com/help-center/developers/hooks/advanced-hooks/facetwp_templates/).
 
-[![Packagist Version](https://img.shields.io/packagist/v/itinerisltd/facetwp-builder.svg?label=release&style=flat-square)](https://packagist.org/packages/itinerisltd/facetwp-builder)
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/itinerisltd/facetwp-builder.svg?style=flat-square)](https://packagist.org/packages/itinerisltd/facetwp-builder)
-[![Packagist Downloads](https://img.shields.io/packagist/dt/itinerisltd/facetwp-builder.svg?label=packagist%20downloads&style=flat-square)](https://packagist.org/packages/itinerisltd/facetwp-builder/stats)
-[![GitHub License](https://img.shields.io/github/license/itinerisltd/facetwp-builder.svg?style=flat-square)](https://github.com/itinerisltd/facetwp-builder/blob/master/LICENSE)
+[![Packagist Version](https://img.shields.io/packagist/v/danlapteacru/facetwp-builder.svg?label=release&style=flat-square)](https://packagist.org/packages/danlapteacru/facetwp-builder)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/danlapteacru/facetwp-builder.svg?style=flat-square)](https://packagist.org/packages/danlapteacru/facetwp-builder)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/danlapteacru/facetwp-builder.svg?label=packagist%20downloads&style=flat-square)](https://packagist.org/packages/danlapteacru/facetwp-builder/stats)
+[![GitHub License](https://img.shields.io/github/license/danlapteacru/facetwp-builder.svg?style=flat-square)](https://github.com/danlapteacru/facetwp-builder/blob/master/LICENSE)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -30,7 +30,7 @@ Create, register, and reuse [FacetWP](https://facetwp.com/) plugin facets/templa
 ## Installation
 
 ```bash
-composer require itinerisltd/facetwp-builder
+composer require danlapteacru/facetwp-builder
 ```
 
 If your project isn't using composer, you can require the `autoload.php` file.
@@ -482,30 +482,30 @@ $builder->addFacet('my_facet', 'checkbox', [
 ]);
 ```
 
-To use a type not in the built-in [`ALLOWED_FACET_TYPES`](https://github.com/itinerisltd/facetwp-builder/blob/main/src/FacetsBuilder.php#L66) constant, register it via the [`itinerisltd/facetwp-builder/allowed_facet_types`](#itinerisltdfacetwp-builderallowed_facet_types) filter hook.
+To use a type not in the built-in [`ALLOWED_FACET_TYPES`](https://github.com/danlapteacru/facetwp-builder/blob/main/src/FacetsBuilder.php#L66) constant, register it via the [`danlapteacru/facetwp-builder/allowed_facet_types`](#danlapteacrufacetwp-builderallowed_facet_types) filter hook.
 
 ## Hooks
 
-### `itinerisltd/facetwp-builder/allowed_facet_types`
+### `danlapteacru/facetwp-builder/allowed_facet_types`
 
 Filter the list of allowed facet types. Use this to add support for custom or 3rd-party addon types.
 
 ```php
-add_filter('itinerisltd/facetwp-builder/allowed_facet_types', function (array $types): array {
+add_filter('danlapteacru/facetwp-builder/allowed_facet_types', function (array $types): array {
     $types[] = 'my_custom_type';
     return $types;
 });
 ```
 
-### `itinerisltd/facetwp-builder/facets`
+### `danlapteacru/facetwp-builder/facets`
 
 Filter the compiled facets array before it is returned by `FacetsBuilder::build()`.
 
-### `itinerisltd/facetwp-builder/facet_key`
+### `danlapteacru/facetwp-builder/facet_key`
 
 Filter the resolved facet type key before it is validated inside `FacetsBuilder::__call()`. Useful for aliasing method names to custom type strings.
 
-### `itinerisltd/facetwp-builder/templates`
+### `danlapteacru/facetwp-builder/templates`
 
 Filter the compiled templates array before it is returned by `TemplatesBuilder::build()`.
 
@@ -522,7 +522,7 @@ Filter the compiled templates array before it is returned by `TemplatesBuilder::
 ### Add Facets
 
 ```php
-use Itineris\FacetWpBuilder\FacetsBuilder;
+use DanLapteacru\FacetWpBuilder\FacetsBuilder;
 
 $builder = new FacetsBuilder();
 $builder
@@ -536,9 +536,9 @@ $builder->build();
 ### Add a custom facet
 
 ```php
-use Itineris\FacetWpBuilder\FacetBuilder;
-use Itineris\FacetWpBuilder\Facets\Checkbox;
-use Itineris\FacetWpBuilder\FacetsBuilder;
+use DanLapteacru\FacetWpBuilder\FacetBuilder;
+use DanLapteacru\FacetWpBuilder\Facets\Checkbox;
+use DanLapteacru\FacetWpBuilder\FacetsBuilder;
 
 $facet = new FacetBuilder('my_facet', Checkbox::TYPE);
 $facet
@@ -552,7 +552,7 @@ FacetsBuilder::addFacetWpHook($facetArray);
 ### Add Template
 
 ```php
-use Itineris\FacetWpBuilder\TemplatesBuilder;
+use DanLapteacru\FacetWpBuilder\TemplatesBuilder;
 
 $builder = new TemplatesBuilder();
 $builder
@@ -570,10 +570,10 @@ $builder->build();
 
 ## Credits
 
-[FacetWP Builder](https://github.com/itinerisltd/facetwp-builder) is maintained by [Itineris](https://www.itineris.co.uk/), originally created by [Dan Lapteacru](https://github.com/danlapteacru).
+[FacetWP Builder](https://github.com/danlapteacru/facetwp-builder) is created and maintained by [Dan Lapteacru](https://github.com/danlapteacru).
 
-Full list of contributors can be found [here](https://github.com/itinerisltd/facetwp-builder/graphs/contributors).
+Full list of contributors can be found [here](https://github.com/danlapteacru/facetwp-builder/graphs/contributors).
 
 ## License
 
-[FacetWP Builder](https://github.com/itinerisltd/facetwp-builder) is released under the [MIT License](https://opensource.org/licenses/MIT).
+[FacetWP Builder](https://github.com/danlapteacru/facetwp-builder) is released under the [MIT License](https://opensource.org/licenses/MIT).

@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder;
+namespace DanLapteacru\FacetWpBuilder;
 
 use BadMethodCallException;
-use Itineris\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
-use Itineris\FacetWpBuilder\Facets\Autocomplete;
-use Itineris\FacetWpBuilder\Facets\Checkbox;
-use Itineris\FacetWpBuilder\Facets\DateRange;
-use Itineris\FacetWpBuilder\Facets\Dropdown;
-use Itineris\FacetWpBuilder\Facets\FSelect;
-use Itineris\FacetWpBuilder\Facets\Hierarchy;
-use Itineris\FacetWpBuilder\Facets\NumberRange;
-use Itineris\FacetWpBuilder\Facets\Pager;
-use Itineris\FacetWpBuilder\Facets\Proximity;
-use Itineris\FacetWpBuilder\Facets\Radio;
-use Itineris\FacetWpBuilder\Facets\Reset;
-use Itineris\FacetWpBuilder\Facets\Search;
-use Itineris\FacetWpBuilder\Facets\Slider;
-use Itineris\FacetWpBuilder\Facets\Sort;
-use Itineris\FacetWpBuilder\Facets\StarRating;
-use Itineris\FacetWpBuilder\Facets\UserSelections;
-use Itineris\FacetWpBuilder\Interfaces\Builder;
-use Itineris\FacetWpBuilder\Interfaces\NamedBuilder;
-use Itineris\FacetWpBuilder\Traits\Helpers;
+use DanLapteacru\FacetWpBuilder\Abstracts\ParentDelegationBuilder;
+use DanLapteacru\FacetWpBuilder\Facets\Autocomplete;
+use DanLapteacru\FacetWpBuilder\Facets\Checkbox;
+use DanLapteacru\FacetWpBuilder\Facets\DateRange;
+use DanLapteacru\FacetWpBuilder\Facets\Dropdown;
+use DanLapteacru\FacetWpBuilder\Facets\FSelect;
+use DanLapteacru\FacetWpBuilder\Facets\Hierarchy;
+use DanLapteacru\FacetWpBuilder\Facets\NumberRange;
+use DanLapteacru\FacetWpBuilder\Facets\Pager;
+use DanLapteacru\FacetWpBuilder\Facets\Proximity;
+use DanLapteacru\FacetWpBuilder\Facets\Radio;
+use DanLapteacru\FacetWpBuilder\Facets\Reset;
+use DanLapteacru\FacetWpBuilder\Facets\Search;
+use DanLapteacru\FacetWpBuilder\Facets\Slider;
+use DanLapteacru\FacetWpBuilder\Facets\Sort;
+use DanLapteacru\FacetWpBuilder\Facets\StarRating;
+use DanLapteacru\FacetWpBuilder\Facets\UserSelections;
+use DanLapteacru\FacetWpBuilder\Interfaces\Builder;
+use DanLapteacru\FacetWpBuilder\Interfaces\NamedBuilder;
+use DanLapteacru\FacetWpBuilder\Traits\Helpers;
 
 /**
  * Builds configurations for FaceWP facets
@@ -51,7 +51,7 @@ use Itineris\FacetWpBuilder\Traits\Helpers;
  * @method FacetsBuilder addUserSelections(string $name, array $args = [])
  *
  * @information To add a custom facet type, you can use the addFacet() method or use the
- * "itinerisltd/facetwp-builder/facets" WP filter.
+ * "danlapteacru/facetwp-builder/facets" WP filter.
  */
 class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 {
@@ -136,7 +136,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
         $facets = $this->buildFacets();
         if (function_exists('apply_filters')) {
             $facets = apply_filters(
-                'itinerisltd/facetwp-builder/facets',
+                'danlapteacru/facetwp-builder/facets',
                 $facets,
                 $this,
             );
@@ -226,7 +226,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
         if (function_exists('apply_filters')) {
             $facetTypes = apply_filters(
-                'itinerisltd/facetwp-builder/allowed_facet_types',
+                'danlapteacru/facetwp-builder/allowed_facet_types',
                 $facetTypes,
             );
         }
@@ -252,7 +252,7 @@ class FacetsBuilder extends ParentDelegationBuilder implements NamedBuilder
 
         if (function_exists('apply_filters')) {
             $keyName = apply_filters(
-                'itinerisltd/facetwp-builder/facet_key',
+                'danlapteacru/facetwp-builder/facet_key',
                 $keyName,
                 $methodName,
                 $method,

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Itineris\FacetWpBuilder\Exceptions;
+namespace DanLapteacru\FacetWpBuilder\Exceptions;
 
 /**
  * Thrown when a facet is not found on a Builder by a supplied name
